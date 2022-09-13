@@ -69,10 +69,10 @@ class VkBot:
         return self._clean_all_tag_from_str(str(b.select(".page")[0].findAll("h2")[1])).split()[1]
 
     # Получение погоды
-    def _get_weather(city_name: str = "Moscow") -> list:
+    def _get_weather(city: str = "Moscow") -> list:
         url = 'http://api.openweathermap.org/data/2.5/weather'
         api_weather = '2167c514c5f8603fab1bf6a82b12f3ab'
-        
+        city_name = "Moscow"
         params = {'APPID': api_weather, 'q': city_name, 'units': 'metric', 'lang': 'ru'}
         result = requests.get(url, params=params)
         weather = result.json()
@@ -94,13 +94,13 @@ class VkBot:
         # temp = b.select('.rSide .description')
         # weather = temp[0].getText()
         # result = result + weather.strip()
-
-        result = "🌡В городе " + str(weather["name"]) + " температура " + str(float(weather["main"]['temp'])) + " °C\n" 
-        + "📈Максимальная температура " + str(float(weather['main']['temp_max'])) + " °C\n" 
-        + "📉Минимальная температура " + str(float(weather['main']['temp_min'])) + " °C\n" 
-        + "💨Скорость ветра " + str(float(weather['wind']['speed'])) + " м/с\n" 
-        + "🅿️Давление " + str(float(weather['main']['pressure'])) + " мбар\n" 
-        + "💦Влажность " + str(int(weather['main']['humidity'])) + " %\n" 
-        + "👀Видимость " + str(weather['visibility']) + "\n" 
+        
+        res = "🌡В городе " + str(weather["name"]) + " температура " + str(float(weather["main"]['temp'])) + " °C\n" \
+        + "📈Максимальная температура " + str(float(weather['main']['temp_max'])) + " °C\n" \
+        + "📉Минимальная температура " + str(float(weather['main']['temp_min'])) + " °C\n" \
+        + "💨Скорость ветра " + str(float(weather['wind']['speed'])) + " м/с\n" \
+        + "🅿️Давление " + str(float(weather['main']['pressure'])) + " мбар\n" \
+        + "💦Влажность " + str(int(weather['main']['humidity'])) + " %\n" \
+        + "👀Видимость " + str(weather['visibility']) + "\n" \
         + "📜Описание: " + str(weather['weather'][0]["description"]) + "\n\n"
-        return result
+        return res
